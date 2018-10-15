@@ -1,0 +1,34 @@
+<div class="row mt-3">
+  <div class="col-4 text-center">
+   <h3>number employees</h3>
+  </div>
+  <div class="col-4 text-center">
+    <h3>total clients</h3>
+  </div>
+  <div class="col-4 text-center">
+    <h3>sales revenue</h3>
+  </div>
+</div>
+<div class="row mt-3" *ngIf="projectsStats">
+  <div class="col-12 pl-5">
+    <h3>Projects stats</h3>
+    <div class="row">
+      <div class="col-3 text-center">
+        <h4>Canceled</h4>
+        <h3>{{ projectsStats.canceled }}</h3>
+      </div>
+      <div class="col-3  text-center">
+        <h4>Finished</h4>
+        <h3>{{ projectsStats.finished }}</h3>
+      </div>
+      <div class="col-3  text-center">
+        <h4>In Progress</h4>
+        <h3>{{ projectsStats.wip }}</h3>
+      </div>
+      <div class="col-3  text-center">
+        <h4>Prospect</h4>
+        <h3>{{ projectsStats.prospect }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
