@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 
 @Injectable({
@@ -11,5 +10,9 @@ export class ProjectsService {
 
   public getProjectsStats() {
     return this.http.get('http://localhost:3000/projects/stats')
+  }
+
+  public getSalesRevenue() {
+    return this.http.get('http://localhost:3000/projects/revenue')
   }
 }
