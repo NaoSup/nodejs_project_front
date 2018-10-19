@@ -12,4 +12,20 @@ export class ClientsService {
   public getAllClients() {
     return this.http.get(`${environment.BASE_API}/clients`)
   }
+
+  public getDetailsClient(id) {
+    return this.http.get(`${environment.BASE_API}/clients/${id}`)
+  }
+
+  public addClient() {
+
+  }
+
+  public deleteClient(id) {
+
+  }
+
+  public updateClient(id) {
+
+  }
 }

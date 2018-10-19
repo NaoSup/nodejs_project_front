@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-10 offset-1 mt-5 inline" *ngIf="client">
+    <div class="row">
+      <div class="col-3 offset-1 text-center">
+          <h3>{{ client.companyName }}</h3>
+          <button class="btn btn-info mr-3"><a [routerLink]="[ '/clients', client._id ]">Edit</a></button>
+          <button class="btn btn-danger"><a href="" (click)="$event.preventDefault(); deleteClient(client._id);">Delete</a></button>
+      </div>
+      <div class="col-7">
+        <b>Address : </b> {{ client.address.street}}, {{ client.address.zipCode }} {{ client.address.city }}
+        <br>
+        <b>Contact : </b> {{ client.contactPerson.firstName }} {{ client.contactPerson.lastName }}
+        <br>
+        <b>Business : </b> {{ client.businessLine }}
+      </div>
+    </div>
+
+  </div>
+</div>

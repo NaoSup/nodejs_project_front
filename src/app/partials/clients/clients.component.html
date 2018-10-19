@@ -1,3 +1,44 @@
-<p>
-  clients works!
-</p>
+<div class="row">
+  <div class="col-10 offset-1 pt-3">
+    <div class="row">
+      <div class="col-10">
+        <h3 class="pb-2">Clients</h3>
+      </div>
+      <div class="col-2 text-right">
+          <button class="btn btn-primary mb-2" routerLink="/addClient">+ Add a client</button>
+      </div>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Company</th>
+          <th scope="col">Address</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Business Line</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients, let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ client.companyName }}</td>
+          <td>
+            {{ client.address.street }} <br>
+            {{ client.address.zipCode }} {{ client.address.city }}
+          </td>
+          <td>
+            {{ client.contactPerson.firstName }} {{ client.contactPerson.lastName }} <br>
+            <b>phone : </b>{{ client.contactPerson.phone }} <br>
+            <b>email : </b>{{ client.contactPerson.email }}
+          </td>
+          <td>{{ client.businessLine }}</td>
+          <td>
+            <button class="btn btn-info mr-3"><a [routerLink]="[ '/clients', client._id ]">View</a></button>
+            <button class="btn btn-danger"><a href="" (click)="$event.preventDefault(); deleteClient(client._id);">Delete</a></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
