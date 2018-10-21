@@ -5,7 +5,7 @@
         <h3 class="pb-2">Clients</h3>
       </div>
       <div class="col-2 text-right">
-          <button class="btn btn-outline-primary mb-2" routerLink="/addClient">+ Add a client</button>
+          <button class="btn btn-outline-primary mb-2" routerLink="/clients/add">+ Add a client</button>
       </div>
     </div>
     <table class="table table-hover">
@@ -32,9 +32,9 @@
             <b>phone : </b>{{ client.contactPerson.phone }} <br>
             <b>email : </b>{{ client.contactPerson.email }}
           </td>
-          <td>{{ client.businessSector }}</td>
+          <td>{{ businessSectorsList[client.businessSector] }}</td>
           <td>
-            <button class="btn btn-outline-info mr-3" [routerLink]="[ '/clients', client._id ]">View</button>
+            <button class="btn btn-outline-info mr-3" [routerLink]="[ '/clients/detailed', client._id ]">View</button>
             <button class="btn btn-outline-danger"  (click)="deleteClient(client._id)">Delete</button>
           </td>
         </tr>

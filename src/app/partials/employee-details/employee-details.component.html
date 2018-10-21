@@ -1,3 +1,38 @@
-<p>
-  employee-details works!
-</p>
+<div class="row">
+  <div class="col-10 offset-1 mt-5 inline">
+    <div class="row">
+      <div class="col-10 offset-1 pb-3">
+        <button class="btn btn-outline-secondary" routerLink="/employees">
+          Go back
+        </button>
+      </div>
+    </div>
+    <div class="row" *ngIf="employee">
+      <div class="col-6 text-right">
+          <h3>{{ employee.firstName | titlecase }} {{ employee.lastName | uppercase }}</h3>
+          <h5 class="mb-3"><i>{{ employee.username | lowercase }}</i><br>
+          {{ employeePositionsList[employee.position] }}</h5>
+          <button class="btn btn-outline-info mr-3" [routerLink]="[ '/employees/edit', employee._id ]">Edit</button>
+          <button class="btn btn-outline-danger" (click)="deleteEmployee(employee._id)">Delete</button>
+      </div>
+      <div class="col-6">
+        <h5>Address</h5> 
+        <p>
+          {{ employee.address.street }} <br>
+          {{ employee.address.zipCode }} <br>
+          {{ employee.address.city }}
+        </p>
+        <h5>Contact</h5>
+        <p>
+          <b>phone :</b> {{ employee.phone }}
+          <br>
+          <b>email :</b> {{ employee.email }}
+        </p>
+        <h5>Birthdate</h5>
+        <p>
+          {{ employee.birthdate }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

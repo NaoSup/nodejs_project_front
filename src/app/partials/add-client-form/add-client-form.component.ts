@@ -10,19 +10,19 @@ import { BUSINESS_SECTORS } from '../../../config/constants';
 })
 export class AddClientFormComponent implements OnInit {
   client = {
-    companyName: '',
+    companyName: null,
     address: {
-      street: '',
-      zipCode: '',
-      city: ''
+      street: null,
+      zipCode: null,
+      city: null
     },
     contactPerson: {
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: ''
+      firstName: null,
+      lastName: null,
+      phone: null,
+      email: null
     },
-    businessSector: ''
+    businessSector: null
   }
 
   businessSectorsList = BUSINESS_SECTORS;
@@ -33,7 +33,7 @@ export class AddClientFormComponent implements OnInit {
   constructor(private route: ActivatedRoute, private clientsService: ClientsService) { }
 
   ngOnInit() {
-    if (this.route.url['value'][0].path === 'updateClient' && this.route.params['value']['id']) {
+    if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
       this.clientId = this.route.params['value']['id']
       this.clientsService.getDetailsClient(this.clientId).subscribe(res => {
         if (res && res['data'] && res['data'].length) {

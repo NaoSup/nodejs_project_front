@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
+import { BUSINESS_SECTORS } from '../../../config/constants';
 
 @Component({
   selector: 'app-clients',
@@ -8,6 +9,7 @@ import { ClientsService } from '../../services/clients.service';
 })
 export class ClientsComponent implements OnInit {
   clients:Array<Object>;
+  businessSectorsList = BUSINESS_SECTORS;
   constructor(private clientsService: ClientsService) { }
 
   ngOnInit() {

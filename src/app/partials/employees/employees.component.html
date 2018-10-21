@@ -1,3 +1,38 @@
-<p>
-  employees works!
-</p>
+<div class="row">
+    <div class="col-10 offset-1 pt-3">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="pb-2">Employees</h3>
+        </div>
+        <div class="col-2 text-right">
+            <button class="btn btn-outline-primary mb-2" routerLink="/employees/add">+ Add an employee</button>
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Birthdate</th>
+            <th scope="col">Position</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees, let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ employee.firstName | titlecase }} {{ employee.lastName | uppercase }}</td>
+            <td>{{  employee.username }}</td>
+            <td>{{ employee.birthdate }}</td>
+            <td>{{ employeePositionsList[employee.position] }}</td>
+            <td>
+              <button class="btn btn-outline-info mr-3" [routerLink]="[ '/employees/detailed', employee._id ]">View</button>
+              <button class="btn btn-outline-danger"  (click)="deleteEmployee(employee._id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

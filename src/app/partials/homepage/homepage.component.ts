@@ -16,7 +16,10 @@ export class HomepageComponent implements OnInit {
   constructor(
     private projectsService: ProjectsService,
     private employeesService: EmployeesService,
-    private clientsService: ClientsService) {
+    private clientsService: ClientsService) { }
+  
+  ng
+  ngOnInit() {
     this.projectsService.getProjectsStats().subscribe(res => { 
       if (res && res['data']) {
         this.projectsStats = res['data']
@@ -37,9 +40,6 @@ export class HomepageComponent implements OnInit {
         this.totalEmployees = res['data'].length
       }
     })
-  }
-
-  ngOnInit() {
   }
 
 }

@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-3 offset-1 text-center">
           <h3>{{ client.companyName }}</h3>
-          <button class="btn btn-outline-info mr-3" [routerLink]="[ '/updateClient', client._id ]">Edit</button>
+          <button class="btn btn-outline-info mr-3" [routerLink]="[ '/clients/edit', client._id ]">Edit</button>
           <button class="btn btn-outline-danger" (click)="deleteClient(client._id)">Delete</button>
       </div>
       <div class="col-7">
