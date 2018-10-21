@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-10 offset-1">
-    <ng-container *ngIf="client._id; else addClient">
+    <ng-container *ngIf="!!client._id; else addClient">
       <h3>Edit client</h3>
     </ng-container>
     <ng-template #addClient>
