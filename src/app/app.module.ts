@@ -20,6 +20,7 @@ import { ProjectDetailsComponent } from './partials/project-details/project-deta
 import { NavbarRoutingModule } from './routes/navbar-routing/navbar-routing.module';
 import { ClientRoutingModule } from './routes/client-routing/client-routing.module';
 import { EmployeeRoutingModule } from './routes/employee-routing/employee-routing.module';
+import { ProjectRoutingModule } from './routes/project-routing/project-routing.module'
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { EmployeeRoutingModule } from './routes/employee-routing/employee-routin
     NavbarRoutingModule,
     ClientRoutingModule,
     EmployeeRoutingModule,
+    ProjectRoutingModule,
     HttpClientModule,
     FormsModule
   ],

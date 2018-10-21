@@ -16,4 +16,12 @@ export class ProjectsService {
   public getSalesRevenue() {
     return this.http.get(`${environment.BASE_API}/projects/revenue`)
   }
+
+  public getAllProjects() {
+    return this.http.get(`${environment.BASE_API}/projects`)
+  }
+  
+  public getDetailedProject(id) {
+    return this.http.get(`${environment.BASE_API}/projects/find/${id}`)
+  }
 }

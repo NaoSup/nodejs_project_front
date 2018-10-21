@@ -1,13 +1,13 @@
 <div class="row">
-  <div class="col-10 offset-1 mt-5 inline" *ngIf="client">
+  <div class="col-10 offset-1 mt-5 inline">
     <div class="row">
       <div class="col-10 offset-1 pb-3">
-        <button class="btn btn-outline-secondary" routerLink="/clients">
+        <button class="btn btn-outline-secondary" (click)="goBack()">
           Go back
         </button>
       </div>
     </div>
-    <div class="row">
+    <div class="row"  *ngIf="client">
       <div class="col-3 offset-1 text-center">
           <h3>{{ client.companyName }}</h3>
           <button class="btn btn-outline-info mr-3" [routerLink]="[ '/clients/edit', client._id ]">Edit</button>

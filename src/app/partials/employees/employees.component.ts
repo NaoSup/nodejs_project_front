@@ -19,10 +19,10 @@ export class EmployeesComponent implements OnInit {
       console.log(res)
       if (res && res['data']) {
         this.employees = res['data']
+        this.employees.forEach(employee => {
+          employee.birthdate = moment(employee.birthdate).format('DD/MM/YYYY');
+        });
       }
-      this.employees.forEach(employee => {
-        employee.birthdate = moment(employee.birthdate).format('MM/DD/YYYY');
-      });
     })
     this.hideLoader()
   }

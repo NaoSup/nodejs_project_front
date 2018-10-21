@@ -1,3 +1,44 @@
-<p>
-  project-details works!
-</p>
+<div class="row">
+  <div class="col-10 offset-1 mt-5 inline">
+    <div class="row">
+      <div class="col-10 offset-1 pb-3">
+        <button class="btn btn-outline-secondary" (click)="goBack()">
+          Go back
+        </button>
+      </div>
+    </div>
+    <div class="row"  *ngIf="project">
+      <div class="col-3 offset-1 text-center">
+          <h3>{{ project.name }}</h3>
+          <p>{{ project.dateStart }} - {{ project.dateEnd }}</p>
+          <p><a [routerLink]="[ '/clients/detailed', project.client._id ]">{{ project.client.companyName }}</a></p>
+          <h4 [ngClass]="classStatus">{{ projectStatusList[project.status] }}</h4>
+          <h5 class="text-primary font-weight-bold mb-3">{{ project.price }}€</h5>
+          <button class="btn btn-outline-info mr-3" [routerLink]="[ '/projects/edit', project._id ]">Edit</button>
+          <button class="btn btn-outline-danger" (click)="deleteProject(project._id)">Delete</button>
+      </div>
+      <div class="col-7">
+        <div class="border-bottom pb-2">
+          {{ project.description }}
+        </div>
+        <ng-container *ngIf="project.employees.length; else noEmployees">
+          <table class="table table-hover col-10 offset-1">
+            <thead>
+              <th>Employees</th>
+              <th>Position</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of project.employees" class="clickable" (click)="goToEmployeePage(employee._id)">
+                <td>{{ employee.firstName | titlecase }} {{ employee.lastName | uppercase }}</td>
+                <td>{{ employeePositionsList[employee.position] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #noEmployees>
+          <p>No employee is assigned to this project...</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

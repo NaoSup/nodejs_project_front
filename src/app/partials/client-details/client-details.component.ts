@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-client-details',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ClientDetailsComponent implements OnInit {
   idClient:string; 
   client:Object;
-  constructor(private clientsService: ClientsService, private route: ActivatedRoute) { }
+  constructor(private clientsService: ClientsService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -21,6 +22,10 @@ export class ClientDetailsComponent implements OnInit {
         }
       })
    });
+  }
+
+  goBack() {
+    this.location.back()
   }
 
   deleteClient(id) {
