@@ -19,7 +19,7 @@ export class ClientsComponent implements OnInit {
   }
 
   deleteClient(id) {
-    console.log('deleting client with id ', id)
+    this.clientsService.deleteClient(id)
   }
 
 }

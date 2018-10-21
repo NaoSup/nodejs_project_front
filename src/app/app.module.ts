@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './partials/navbar/navbar.component';
 import { HomepageComponent } from './partials/homepage/homepage.component';
 import { ProjectsComponent } from './partials/projects/projects.component';
@@ -35,7 +36,8 @@ import { ProjectDetailsComponent } from './partials/project-details/project-deta
   imports: [
     BrowserModule,
     NavbarRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

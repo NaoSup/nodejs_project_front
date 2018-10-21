@@ -23,4 +23,7 @@ export class ClientDetailsComponent implements OnInit {
    });
   }
 
+  deleteClient(id) {
+    this.clientsService.deleteClient(id)
+  }
 }

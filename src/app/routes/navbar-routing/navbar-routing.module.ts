@@ -13,7 +13,8 @@ const navbarRoutes: Routes = [
   { path: 'employees', component: EmployeesComponent },
   { path: 'clients', component: ClientsComponent },
   { path: 'clients/:id', component: ClientDetailsComponent },
-  { path: 'addClient', component: AddClientFormComponent }
+  { path: 'addClient', component: AddClientFormComponent },
+  { path: 'updateClient/:id', component: AddClientFormComponent }
 ]
 
 @NgModule({
