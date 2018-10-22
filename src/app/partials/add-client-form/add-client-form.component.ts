@@ -29,12 +29,13 @@ export class AddClientFormComponent implements OnInit {
   businessSectorsKeys = Object.keys(this.businessSectorsList);
 
   clientId;
-
+  doesClientExists = false;
   constructor(private route: ActivatedRoute, private clientsService: ClientsService) { }
 
   ngOnInit() {
     if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
       this.clientId = this.route.params['value']['id']
+      this.doesClientExists = true;
       this.clientsService.getDetailsClient(this.clientId).subscribe(res => {
         if (res && res['data'] && res['data'].length) {
           this.client = res['data'][0]
