@@ -29,11 +29,13 @@ export class AddEmployeeFormComponent implements OnInit {
   }
 
   employeeId:string;
+  doesEmployeeExists = false;
   constructor(private employeesService: EmployeesService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
       this.employeeId = this.route.params['value']['id']
+      this.doesEmployeeExists = true;
       this.employeesService.getDetailedEmployee(this.employeeId).subscribe(res => {
         if (res && res['data'] && res['data'].length) {
           this.employee = res['data'][0]
