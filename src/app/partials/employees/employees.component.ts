@@ -14,29 +14,29 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeesService: EmployeesService) { }
 
   ngOnInit() {
-    this.showLoader()
+    this.showLoader();
     this.employeesService.getListEmployees().subscribe(res => {
-      console.log(res)
+      console.log(res);
       if (res && res['data']) {
-        this.employees = res['data']
+        this.employees = res['data'];
         this.employees.forEach(employee => {
           employee.birthdate = moment(employee.birthdate).format('DD/MM/YYYY');
         });
       }
-    })
-    this.hideLoader()
+    });
+    this.hideLoader();
   }
 
   deleteEmployee(id) {
-    this.employeesService.deleteEmployee(id)
+    this.employeesService.deleteEmployee(id);
   }
 
   showLoader() {
-    console.log('show loader')
+    console.log('show loader');
   }
 
   hideLoader() {
-    console.log('hide loader')
+    console.log('hide loader');
   }
 
 }

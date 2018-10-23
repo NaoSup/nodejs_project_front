@@ -10,7 +10,7 @@ const navbarRoutes: Routes = [
   { path: 'projects', component: ProjectsComponent },
   { path: 'employees', component: EmployeesComponent },
   { path: 'clients', component: ClientsComponent }
-]
+];
 
 @NgModule({
   imports: [

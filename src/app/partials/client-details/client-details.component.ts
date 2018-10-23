@@ -9,8 +9,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./client-details.component.css']
 })
 export class ClientDetailsComponent implements OnInit {
-  idClient:string; 
-  client:Object;
+  idClient: string;
+  client: Object;
   constructor(private clientsService: ClientsService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
@@ -18,17 +18,17 @@ export class ClientDetailsComponent implements OnInit {
       this.idClient = params['id'];
       this.clientsService.getDetailsClient(this.idClient).subscribe(res => {
         if (res && res['data'] && res['data'].length) {
-          this.client = res['data'][0]
+          this.client = res['data'][0];
         }
-      })
+      });
    });
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
   deleteClient(id) {
-    this.clientsService.deleteClient(id)
+    this.clientsService.deleteClient(id);
   }
 }

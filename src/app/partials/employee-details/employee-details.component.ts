@@ -12,8 +12,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./employee-details.component.css']
 })
 export class EmployeeDetailsComponent implements OnInit {
-  employee:Object;
-  idEmployee:string;
+  employee: Object;
+  idEmployee: string;
   employeePositionsList = EMPLOYEE_POSITIONS;
   constructor(private employeesService: EmployeesService, private route: ActivatedRoute, private location: Location) { }
 
@@ -22,18 +22,18 @@ export class EmployeeDetailsComponent implements OnInit {
       this.idEmployee = params['id'];
       this.employeesService.getDetailedEmployee(this.idEmployee).subscribe(res => {
         if (res && res['data'] && res['data'].length) {
-          this.employee = res['data'][0]
-          this.employee['birthdate'] = moment(this.employee['birthdate']).format('DD/MM/YYYY')
+          this.employee = res['data'][0];
+          this.employee['birthdate'] = moment(this.employee['birthdate']).format('DD/MM/YYYY');
         }
-      })
-   })
+      });
+   });
   }
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
   deleteProject(id) {
-    console.log('delete project')
+    console.log('delete project');
   }
 
 }

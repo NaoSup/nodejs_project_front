@@ -20,7 +20,8 @@ import { ProjectDetailsComponent } from './partials/project-details/project-deta
 import { NavbarRoutingModule } from './routes/navbar-routing/navbar-routing.module';
 import { ClientRoutingModule } from './routes/client-routing/client-routing.module';
 import { EmployeeRoutingModule } from './routes/employee-routing/employee-routing.module';
-import { ProjectRoutingModule } from './routes/project-routing/project-routing.module'
+import { ProjectRoutingModule } from './routes/project-routing/project-routing.module';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ProjectRoutingModule } from './routes/project-routing/project-routing.m
     EmployeeRoutingModule,
     ProjectRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

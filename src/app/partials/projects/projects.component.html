@@ -27,10 +27,17 @@
           <td>{{ project.dateStart }}</td>
           <td>{{ project.dateEnd }}</td>
           <td>{{ projectStatusList[project.status] }}</td>
-          <td><a [routerLink]="[ '/clients/detailed', project.client._id ]">{{ project.client.companyName }}</a></td>
+          <td>
+            <ng-container *ngIf="project.client; else elseTemplate">
+                <a [routerLink]="[ '/clients/detailed', project.client._id ]">{{ project.client.companyName }}</a>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <p class="font-italic">No client...</p>
+            </ng-template>
+          </td>
           <td>
             <button class="btn btn-outline-info mr-3" [routerLink]="[ '/projects/detailed', project._id ]">View</button>
-            <button class="btn btn-outline-danger"  (click)="deleteEmployee(employee._id)">Delete</button>
+            <button class="btn btn-outline-danger"  (click)="deleteProject(project._id)">Delete</button>
           </td>
         </tr>
       </tbody>
