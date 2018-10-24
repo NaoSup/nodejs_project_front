@@ -50,16 +50,10 @@ export class ProjectsService {
     config = config.append('Accept', 'application/json');
     project['dateStart'] = new Date(project['dateStart']);
     project['dateEnd'] = new Date(project['dateEnd']);
-    this.http.put(`${environment.BASE_API}/projects/update/${id}`, JSON.stringify(project), { headers: config }).subscribe(res => {
-      this.router.navigateByUrl(`/projects/detailed/${id}`);
-    },
-    err => console.log(err));
+    return this.http.put(`${environment.BASE_API}/projects/update/${id}`, JSON.stringify(project), { headers: config });
   }
 
   public deleteProject(id) {
-    this.http.delete(`${environment.BASE_API}/projects/delete/${id}`).subscribe(() => {
-      this.router.navigateByUrl('/projects');
-    },
-    err => console.log(err));
+    return this.http.delete(`${environment.BASE_API}/projects/delete/${id}`);
   }
 }

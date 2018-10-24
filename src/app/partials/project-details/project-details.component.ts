@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { PROJECT_STATUS, EMPLOYEE_POSITIONS } from '../../../config/constants';
 import { ProjectsService } from '../../services/projects.service';
 import { Location } from '@angular/common';
 import { RoutesService } from '../../services/routes.service';
+import { SwalComponent } from '@toverux/ngx-sweetalert2';
 
 @Component({
   selector: 'app-project-details',
@@ -12,6 +13,9 @@ import { RoutesService } from '../../services/routes.service';
   styleUrls: ['./project-details.component.css']
 })
 export class ProjectDetailsComponent implements OnInit {
+  @ViewChild('confirmDeleteProjectSwal') private confirmDeleteProjectSwal: SwalComponent;
+  @ViewChild('askConfirmationDeletionSwal') private askConfirmationDeletionSwal: SwalComponent;
+  @ViewChild('errorOnSubmit') private errorOnSubmit: SwalComponent;
   project: Object;
   mutableProject: Object;
   idProject: string;
@@ -35,8 +39,8 @@ export class ProjectDetailsComponent implements OnInit {
         if (res && res['data'] && res['data'].length) {
           this.project = res['data'][0];
           this.mutableProject = this.project;
-          this.project['dateStart'] = moment(this.project['dateStart']).format('DD/MM/YYYY');
-          this.project['dateEnd'] = moment(this.project['dateEnd']).format('DD/MM/YYYY');
+          this.project['dateStart'] =this.project['dateStart'] ? moment(this.project['dateStart']).format('DD/MM/YYYY') : null;
+          this.project['dateEnd'] = this.project['dateEnd'] ? moment(this.project['dateEnd']).format('DD/MM/YYYY') : null;
           switch (this.project['status']) {
             case 'canceled': {
               this.classStatus = 'text-danger';
@@ -61,10 +65,10 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   goBack() {
-    if (this.previousUrl.split('/')[2] === 'edit') {
-      this.router.navigateByUrl('/projects');
-    } else {
+    if (this.previousUrl && this.previousUrl.split('/')[2] !== 'edit') {
       this.location.back();
+    } else {
+      this.router.navigateByUrl('/projects');
     }
   }
   goToEmployeePage(id) {
@@ -72,21 +76,32 @@ export class ProjectDetailsComponent implements OnInit {
   }
   addComment(id) {
     this.project['comments'].push(this.pendingComment);
-    this.mutableProject = this.project;
+    this.mutableProject = JSON.parse(JSON.stringify(this.project));
     this.mutableProject['dateStart'] = moment(this.mutableProject['dateStart']).format('YYYY-MM-DD');
     this.mutableProject['dateEnd'] = moment(this.mutableProject['dateEnd']).format('YYYY-MM-DD');
-    this.projectsService.updateProject(id, this.mutableProject);
+    this.projectsService.updateProject(id, this.mutableProject).subscribe();
   }
 
   removeComment(idProject, idComment) {
     this.project['comments'].splice(idComment, 1);
-    this.mutableProject = this.project;
+    this.mutableProject = JSON.parse(JSON.stringify(this.project));
     this.mutableProject['dateStart'] = moment(this.mutableProject['dateStart']).format('YYYY-MM-DD');
     this.mutableProject['dateEnd'] = moment(this.mutableProject['dateEnd']).format('YYYY-MM-DD');
-    this.projectsService.updateProject(idProject, this.mutableProject);
+    this.projectsService.updateProject(idProject, this.mutableProject).subscribe();
   }
 
+  confirmDelete() {
+    this.askConfirmationDeletionSwal.show()
+  }
   deleteProject(id) {
-    this.projectsService.deleteProject(id);
+    this.projectsService.deleteProject(id).subscribe(res => {
+      this.confirmDeleteProjectSwal.show();
+    },
+    err => {
+      this.errorOnSubmit.show();
+    });
+  }
+  redirectToList() {
+    this.router.navigateByUrl('/projects');
   }
 }

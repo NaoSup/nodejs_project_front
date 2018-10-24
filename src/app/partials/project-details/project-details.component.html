@@ -8,16 +8,40 @@
       </div>
     </div>
     <div class="row"  *ngIf="project">
-      <div class="col-3 offset-1 text-center">
+      <div class="col-3 offset-1 text-center border-right">
           <h3>{{ project.name }}</h3>
-          <p>{{ project.dateStart }} - {{ project.dateEnd }}</p>
+          <p>
+            <ng-container *ngIf="project.dateStart; else elseTemplate">
+              {{ project.dateStart }}
+            </ng-container>
+            <ng-template #elseTemplate>
+              <i>Unknown start date</i>
+            </ng-template>
+            -
+            <ng-container *ngIf="project.dateEnd; else elseTemplate">
+              {{ project.dateEnd }}
+            </ng-container>
+            <ng-template #elseTemplate>
+              <i>Unknown end date</i>
+            </ng-template>
+          </p>
           <p><a [routerLink]="[ '/clients/detailed', project.client._id ]">{{ project.client.companyName }}</a></p>
           <h4 [ngClass]="classStatus">{{ projectStatusList[project.status] }}</h4>
           <h5 class="text-primary font-weight-bold mb-3">{{ project.price }}€</h5>
           <button class="btn btn-outline-info mr-3" [routerLink]="[ '/projects/edit', project._id ]">Edit</button>
-          <button class="btn btn-outline-danger" (click)="deleteProject(project._id)">Delete</button>
+          <button class="btn btn-outline-danger" (click)="confirmDelete()">Delete</button>
+          <swal #askConfirmationDeletionSwal 
+            title="Are you sure want to delete it?" type="warning"
+            [options]="{ showCancelButton: true,  confirmButtonText: 'Yes, I\'m sure!',  confirmButtonColor: '#DD6B55' }"
+            (confirm)="deleteProject(project._id)"></swal>
+          <swal #confirmDeleteProjectSwal 
+            title="The project has been deleted successfully !" type="success"
+            [options]="{  confirmButtonText: 'Great !' }"
+            (confirm)="redirectToList()"></swal>
+          <swal #errorOnSubmit 
+            title="Oups... Something went wrong" text="You can try again" type="error"></swal>
       </div>
-      <div class="col-7">
+      <div class="col-7 ml-3">
         <h5>Description :</h5>
         <div class="pb-2">
           {{ project.description }}

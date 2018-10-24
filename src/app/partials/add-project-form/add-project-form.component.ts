@@ -15,6 +15,7 @@ import * as moment from 'moment';
 export class AddProjectFormComponent implements OnInit {
   @ViewChild('confirmAddProjectSwal') private confirmAddProjectSwal: SwalComponent;
   @ViewChild('errorOnSubmit') private errorOnSubmit: SwalComponent;
+  @ViewChild('confirmEditProjectSwal') private confirmEditProjectSwal: SwalComponent;
   employees = [];
   clients = [];
   project = {
@@ -42,22 +43,10 @@ export class AddProjectFormComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
-      this.projectId = this.route.params['value']['id'];
-      this.doesProjectExists = true;
-      this.projectsService.getDetailedProject(this.projectId).subscribe(res => {
-        if (res && res['data'] && res['data'].length) {
-          this.project = res['data'][0];
-          this.project['dateStart'] = moment(this.project['dateStart']).format('YYYY-MM-DD');
-          this.project['dateEnd'] = moment(this.project['dateEnd']).format('YYYY-MM-DD');
-        }
-      });
-    }
     this.employeesService.getListEmployees().subscribe(res => {
       if (res && res['data']) {
         this.employees = res['data'];
         if (this.project) {
-          this.removeAssignedEmployees();
         }
       }
     });
@@ -66,6 +55,18 @@ export class AddProjectFormComponent implements OnInit {
         this.clients = res['data'];
       }
     });
+    if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
+      this.projectId = this.route.params['value']['id'];
+      this.doesProjectExists = true;
+      this.projectsService.getDetailedProject(this.projectId).subscribe(res => {
+        if (res && res['data'] && res['data'].length) {
+          this.project = res['data'][0];
+          this.removeAssignedEmployees();
+          this.project['dateStart'] = moment(this.project['dateStart']).format('YYYY-MM-DD');
+          this.project['dateEnd'] = moment(this.project['dateEnd']).format('YYYY-MM-DD');
+        }
+      });
+    }
   }
 
   addToEmployeesList(employee) {
@@ -82,7 +83,12 @@ export class AddProjectFormComponent implements OnInit {
 
   onSubmit() {
     if (this.projectId) {
-      this.projectsService.updateProject(this.projectId, this.project);
+      this.projectsService.updateProject(this.projectId, this.project).subscribe(res => {
+        this.confirmEditProjectSwal.show();
+      },
+      err => {
+        this.errorOnSubmit.show();
+      });
     } else {
       this.projectsService.addProject(this.project).subscribe(res => {
         this.confirmAddProjectSwal.show();
@@ -96,7 +102,9 @@ export class AddProjectFormComponent implements OnInit {
   redirectToList() {
     this.router.navigateByUrl('/projects');
   }
-
+  redirectToProject() {
+    this.router.navigateByUrl(`/projects/detailed/${this.projectId}`)
+  }
   removeAssignedEmployees() {
     this.project.employees.forEach(employee => {
       if (this.employees.filter(employee2 => employee2['_id'] === employee['_id']).length) {

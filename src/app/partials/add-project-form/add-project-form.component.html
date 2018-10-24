@@ -83,8 +83,12 @@
           </form>
             <swal #confirmAddProjectSwal 
             title="The project has been added !" type="success"
-            [options]="{  confirmButtonText: 'Great !',  confirmButtonColor: '#DD6B55' }"
+            [options]="{  confirmButtonText: 'Great !' }"
             (confirm)="redirectToList()"></swal>
+            <swal #confirmEditProjectSwal 
+            title="The project has been updated !" type="success"
+            [options]="{  confirmButtonText: 'Great !' }"
+            (confirm)="redirectToProject()"></swal>
             <swal #errorOnSubmit 
             title="Oups... Something went wrong" text="You can try again" type="error"></swal>
         </div>

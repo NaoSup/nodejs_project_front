@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   deleteProject(id) {
-    this.projectsService.deleteProject(id);
+    this.projectsService.deleteProject(id).subscribe();
   }
 
 }
