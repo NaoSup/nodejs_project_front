@@ -62,7 +62,6 @@ export class EmployeesService {
   }
 
   public getProjects(id) {
-    console.log(id)
     return this.http.get(`${environment.BASE_API}/projects/employee/${id}`);
   }
 }

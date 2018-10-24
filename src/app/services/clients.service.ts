@@ -59,4 +59,8 @@ export class ClientsService {
     },
     err => console.log(err));
   }
+
+  public getProjects(id) {
+    return this.http.get(`${environment.BASE_API}/projects/client/${id}`);
+  }
 }
