@@ -23,7 +23,9 @@ export class AddProjectFormComponent implements OnInit {
     description: null,
     dateStart: null,
     dateEnd: null,
-    client: {},
+    client: {
+      _id: null
+    },
     employees: new Array<Object>(),
     price: null,
     status: null,
