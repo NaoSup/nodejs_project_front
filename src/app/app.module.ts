@@ -22,6 +22,7 @@ import { ClientRoutingModule } from './routes/client-routing/client-routing.modu
 import { EmployeeRoutingModule } from './routes/employee-routing/employee-routing.module';
 import { ProjectRoutingModule } from './routes/project-routing/project-routing.module';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { FooterComponent } from './partials/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
     AddProjectFormComponent,
     AddEmployeeFormComponent,
     EmployeeDetailsComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
