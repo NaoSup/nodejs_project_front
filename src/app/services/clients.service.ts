@@ -37,10 +37,7 @@ export class ClientsService {
     let config = new HttpHeaders();
     config = config.append('Content-Type', 'application/json');
     config = config.append('Accept', 'application/json');
-    this.http.post(`${environment.BASE_API}/clients`, JSON.stringify(client), { headers: config }).subscribe(res => {
-      this.router.navigateByUrl('/clients');
-    },
-    err => console.log(err));
+    return this.http.post(`${environment.BASE_API}/clients`, JSON.stringify(client), { headers: config });
   }
 
   public deleteClient(id) {
@@ -54,10 +51,7 @@ export class ClientsService {
     let config = new HttpHeaders();
     config = config.append('Content-Type', 'application/json');
     config = config.append('Accept', 'application/json');
-    this.http.put(`${environment.BASE_API}/clients/${id}`, JSON.stringify(client), { headers: config }).subscribe(res => {
-      this.router.navigateByUrl(`/clients/${id}`);
-    },
-    err => console.log(err));
+    return this.http.put(`${environment.BASE_API}/clients/${id}`, JSON.stringify(client), { headers: config });
   }
 
   public getProjects(id) {

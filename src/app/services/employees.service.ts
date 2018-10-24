@@ -45,20 +45,14 @@ export class EmployeesService {
     let config = new HttpHeaders();
     config = config.append('Content-Type', 'application/json');
     config = config.append('Accept', 'application/json');
-    this.http.post(`${environment.BASE_API}/employees`, JSON.stringify(employee), { headers: config }).subscribe(res => {
-      this.router.navigateByUrl('/employees');
-    },
-    err => console.log(err));
+    return this.http.post(`${environment.BASE_API}/employees`, JSON.stringify(employee), { headers: config });
   }
 
   public updateEmployee(id, employee) {
     let config = new HttpHeaders();
     config = config.append('Content-Type', 'application/json');
     config = config.append('Accept', 'application/json');
-    this.http.put(`${environment.BASE_API}/employees/update/${id}`, JSON.stringify(employee), { headers: config }).subscribe(res => {
-      this.router.navigateByUrl(`/employees/detailed/${id}`);
-    },
-    err => console.log(err));
+    return this.http.put(`${environment.BASE_API}/employees/update/${id}`, JSON.stringify(employee), { headers: config });
   }
 
   public getProjects(id) {

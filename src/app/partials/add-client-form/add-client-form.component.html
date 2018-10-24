@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-10 offset-1">
+  <div class="col-10 offset-1 mt-5">
     <ng-container *ngIf="doesClientExists; else addClient">
       <h3>Edit client</h3>
     </ng-container>
@@ -59,6 +59,16 @@
             <button class="btn btn-primary">Save</button>
           </div>
         </form>
+        <swal #confirmAddClientSwal 
+        title="The client has been added !" type="success"
+        [options]="{  confirmButtonText: 'Great !' }"
+        (confirm)="redirectToList()"></swal>
+        <swal #confirmEditClientSwal 
+        title="The client has been updated !" type="success"
+        [options]="{  confirmButtonText: 'Great !' }"
+        (confirm)="redirectToClient()"></swal>
+        <swal #errorOnSubmit 
+        title="Oups... Something went wrong" text="You can try again" type="error"></swal>
       </div>
     </div>
   </div>

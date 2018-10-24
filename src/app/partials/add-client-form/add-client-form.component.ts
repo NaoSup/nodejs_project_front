@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from '../../services/clients.service';
 import { BUSINESS_SECTORS } from '../../../config/constants';
+import { SwalComponent } from '@toverux/ngx-sweetalert2';
 
 @Component({
   selector: 'app-add-client-form',
@@ -9,6 +10,9 @@ import { BUSINESS_SECTORS } from '../../../config/constants';
   styleUrls: ['./add-client-form.component.css']
 })
 export class AddClientFormComponent implements OnInit {
+  @ViewChild('confirmAddClientSwal') private confirmAddClientSwal: SwalComponent;
+  @ViewChild('errorOnSubmit') private errorOnSubmit: SwalComponent;
+  @ViewChild('confirmEditClientSwal') private confirmEditClientSwal: SwalComponent;
   client = {
     companyName: null,
     address: {
@@ -30,7 +34,7 @@ export class AddClientFormComponent implements OnInit {
 
   clientId;
   doesClientExists = false;
-  constructor(private route: ActivatedRoute, private clientsService: ClientsService) { }
+  constructor(private route: ActivatedRoute, private clientsService: ClientsService, private router: Router) { }
 
   ngOnInit() {
     if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
@@ -46,9 +50,26 @@ export class AddClientFormComponent implements OnInit {
 
   onSubmit() {
     if (this.clientId) {
-      this.clientsService.updateClient(this.clientId, this.client);
+      this.clientsService.updateClient(this.clientId, this.client).subscribe(res => {
+        this.confirmEditClientSwal.show();
+      },
+      err => {
+        this.errorOnSubmit.show();
+      });
     } else {
-      this.clientsService.addClient(this.client);
+      this.clientsService.addClient(this.client).subscribe(res => {
+        this.confirmAddClientSwal.show();
+      },
+      err => {
+        this.errorOnSubmit.show();
+      });
     }
+  }
+
+  redirectToList() {
+    this.router.navigateByUrl('/clients');
+  }
+  redirectToClient() {
+    this.router.navigateByUrl(`/clients/detailed/${this.clientId}`)
   }
 }
