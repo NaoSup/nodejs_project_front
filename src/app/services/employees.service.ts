@@ -60,4 +60,9 @@ export class EmployeesService {
     },
     err => console.log(err));
   }
+
+  public getProjects(id) {
+    console.log(id)
+    return this.http.get(`${environment.BASE_API}/projects/employee/${id}`);
+  }
 }

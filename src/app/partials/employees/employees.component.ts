@@ -16,7 +16,6 @@ export class EmployeesComponent implements OnInit {
   ngOnInit() {
     this.showLoader();
     this.employeesService.getListEmployees().subscribe(res => {
-      console.log(res);
       if (res && res['data']) {
         this.employees = res['data'];
         this.employees.forEach(employee => {
@@ -38,5 +37,4 @@ export class EmployeesComponent implements OnInit {
   hideLoader() {
     console.log('hide loader');
   }
-
 }
