@@ -1,6 +1,8 @@
 # Frontend
 
+Created by Naomi PAULMIN
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.
+Available for testing at : https://nodejs-project-front.appspot.com/
 
 ## Development server
 
