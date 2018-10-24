@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeesService } from '../../services/employees.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { EMPLOYEE_POSITIONS, PROJECT_STATUS } from '../../../config/constants';
 import { Location } from '@angular/common';
-
+import { RoutesService } from '../../services/routes.service';
 
 @Component({
   selector: 'app-employee-details',
@@ -17,9 +17,15 @@ export class EmployeeDetailsComponent implements OnInit {
   projectStatusList = PROJECT_STATUS;
   employeePositionsList = EMPLOYEE_POSITIONS;
   projects = [];
-  constructor(private employeesService: EmployeesService, private route: ActivatedRoute, private location: Location) { }
+  previousUrl;
+  constructor(private employeesService: EmployeesService, 
+    private route: ActivatedRoute, 
+    private router: Router,
+    private location: Location,
+    private routesService: RoutesService) { }
 
   ngOnInit() {
+    this.previousUrl = this.routesService.getPreviousUrl();
     this.route.params.subscribe(params => {
       this.idEmployee = params['id'];
       this.employeesService.getDetailedEmployee(this.idEmployee).subscribe(res => {
@@ -36,7 +42,11 @@ export class EmployeeDetailsComponent implements OnInit {
    });
   }
   goBack() {
-    this.location.back();
+    if (this.previousUrl && this.previousUrl.split('/')[2] !== 'edit') {
+      this.location.back();
+    } else {
+      this.router.navigateByUrl('/projects');
+    }
   }
 
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { PROJECT_STATUS } from '../../../config/constants';
+import { RoutesService } from '../../services/routes.service';
+
 
 @Component({
   selector: 'app-client-details',
@@ -14,10 +16,16 @@ export class ClientDetailsComponent implements OnInit {
   client: Object;
   projects = [];
   projectStatusList = PROJECT_STATUS;
+  previousUrl: string;
 
-  constructor(private clientsService: ClientsService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private clientsService: ClientsService,
+    private route: ActivatedRoute,
+    private location: Location, 
+    private routesService: RoutesService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.previousUrl = this.routesService.getPreviousUrl();
     this.route.params.subscribe(params => {
       this.idClient = params['id'];
       this.clientsService.getDetailsClient(this.idClient).subscribe(res => {
@@ -34,8 +42,13 @@ export class ClientDetailsComponent implements OnInit {
    });
   }
 
+  // 
   goBack() {
-    this.location.back();
+    if (this.previousUrl && this.previousUrl.split('/')[2] !== 'edit') {
+      this.location.back();
+    } else {
+      this.router.navigateByUrl('/projects');
+    }
   }
 
   deleteClient(id) {
