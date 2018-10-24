@@ -42,7 +42,7 @@ export class ClientDetailsComponent implements OnInit {
    });
   }
 
-  // 
+  // if the previous url is a form, we redirect towards the general list
   goBack() {
     if (this.previousUrl && this.previousUrl.split('/')[2] !== 'edit') {
       this.location.back();

@@ -10,6 +10,7 @@ import { SwalComponent } from '@toverux/ngx-sweetalert2';
   styleUrls: ['./add-client-form.component.css']
 })
 export class AddClientFormComponent implements OnInit {
+  // using Sweet Alert for modals
   @ViewChild('confirmAddClientSwal') private confirmAddClientSwal: SwalComponent;
   @ViewChild('errorOnSubmit') private errorOnSubmit: SwalComponent;
   @ViewChild('confirmEditClientSwal') private confirmEditClientSwal: SwalComponent;
@@ -37,6 +38,7 @@ export class AddClientFormComponent implements OnInit {
   constructor(private route: ActivatedRoute, private clientsService: ClientsService, private router: Router) { }
 
   ngOnInit() {
+    // if the road is the one for editing we fetch the right client
     if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
       this.clientId = this.route.params['value']['id'];
       this.doesClientExists = true;
@@ -48,6 +50,7 @@ export class AddClientFormComponent implements OnInit {
     }
   }
 
+  // if the client already exists we update it, else we add it
   onSubmit() {
     if (this.clientId) {
       this.clientsService.updateClient(this.clientId, this.client).subscribe(res => {

@@ -12,6 +12,7 @@ import * as moment from 'moment';
   styleUrls: ['./add-employee-form.component.css']
 })
 export class AddEmployeeFormComponent implements OnInit {
+  // using Sweet Alert for modals
   @ViewChild('confirmAddEmployeeSwal') private confirmAddEmployeeSwal: SwalComponent;
   @ViewChild('errorOnSubmit') private errorOnSubmit: SwalComponent;
   @ViewChild('confirmEditEmployeeSwal') private confirmEditEmployeeSwal: SwalComponent;
@@ -38,6 +39,7 @@ export class AddEmployeeFormComponent implements OnInit {
   constructor(private employeesService: EmployeesService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    // if the road is the one for editing we fetch the right employee
     if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
       this.employeeId = this.route.params['value']['id'];
       this.doesEmployeeExists = true;
@@ -50,6 +52,7 @@ export class AddEmployeeFormComponent implements OnInit {
     }
   }
 
+  // if the employee already exists we update it, else we add it
   onSubmit() {
     if (this.employeeId) {
       this.employeesService.updateEmployee(this.employeeId, this.employee).subscribe(res => {

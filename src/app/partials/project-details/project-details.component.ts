@@ -64,6 +64,7 @@ export class ProjectDetailsComponent implements OnInit {
    });
   }
 
+  // if the previous url is a form, we redirect towards the general list
   goBack() {
     if (this.previousUrl && this.previousUrl.split('/')[2] !== 'edit') {
       this.location.back();
@@ -71,9 +72,11 @@ export class ProjectDetailsComponent implements OnInit {
       this.router.navigateByUrl('/projects');
     }
   }
+
   goToEmployeePage(id) {
     this.router.navigateByUrl(`/employees/detailed/${id}`);
   }
+
   addComment(id) {
     this.project['comments'].push(this.pendingComment);
     this.mutableProject = JSON.parse(JSON.stringify(this.project));
@@ -101,6 +104,7 @@ export class ProjectDetailsComponent implements OnInit {
       this.errorOnSubmit.show();
     });
   }
+  
   redirectToList() {
     this.router.navigateByUrl('/projects');
   }
