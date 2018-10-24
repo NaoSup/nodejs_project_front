@@ -28,21 +28,13 @@ export class AddEmployeeFormComponent implements OnInit {
     email: null
   };
 
-<<<<<<< HEAD
-  employeeId:string;
-=======
   employeeId: string;
->>>>>>> 55158b4a99cff24410ad14b7ed059d0f913929c3
   doesEmployeeExists = false;
   constructor(private employeesService: EmployeesService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
-<<<<<<< HEAD
-      this.employeeId = this.route.params['value']['id']
-=======
       this.employeeId = this.route.params['value']['id'];
->>>>>>> 55158b4a99cff24410ad14b7ed059d0f913929c3
       this.doesEmployeeExists = true;
       this.employeesService.getDetailedEmployee(this.employeeId).subscribe(res => {
         if (res && res['data'] && res['data'].length) {
