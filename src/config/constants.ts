@@ -1,5 +1,5 @@
 export const BUSINESS_SECTORS = {
-  'ai': 'AI', 
+  'ai': 'AI',
   'fashiontech': 'FashionTech',
   'ecommerce-retail': 'Ecommerce / Retail',
   'adtech': 'AdTech',
@@ -25,18 +25,18 @@ export const BUSINESS_SECTORS = {
   'beautytech': 'BeautyTech',
   'cybersecurity': 'Cybersecurity',
   'other': 'Other'
-}
+};
 
 export const EMPLOYEE_POSITIONS = {
   'project_manager': 'Project Manager',
   'developer': 'Developer',
   'sales_representative': 'Sales Representative',
   'integrator': 'Integrator'
-}
+};
 
-export const   PROJECT_STATUS ={
+export const   PROJECT_STATUS = {
   'canceled': 'Canceled',
   'finished': 'Finished',
   'wip': 'In Progress',
   'prospect': 'Prospect'
-}
+};

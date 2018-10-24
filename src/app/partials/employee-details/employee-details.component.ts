@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeesService } from '../../services/employees.service';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { EMPLOYEE_POSITIONS } from '../../../config/constants';
+import { EMPLOYEE_POSITIONS, PROJECT_STATUS } from '../../../config/constants';
 import { Location } from '@angular/common';
 
 
@@ -12,9 +12,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./employee-details.component.css']
 })
 export class EmployeeDetailsComponent implements OnInit {
-  employee:Object;
-  idEmployee:string;
+  employee: Object;
+  idEmployee: string;
+  projectStatusList = PROJECT_STATUS;
   employeePositionsList = EMPLOYEE_POSITIONS;
+  projects = [];
   constructor(private employeesService: EmployeesService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
@@ -22,18 +24,19 @@ export class EmployeeDetailsComponent implements OnInit {
       this.idEmployee = params['id'];
       this.employeesService.getDetailedEmployee(this.idEmployee).subscribe(res => {
         if (res && res['data'] && res['data'].length) {
-          this.employee = res['data'][0]
-          this.employee['birthdate'] = moment(this.employee['birthdate']).format('DD/MM/YYYY')
+          this.employee = res['data'][0];
+          this.employee['birthdate'] = moment(this.employee['birthdate']).format('DD/MM/YYYY');
+          this.employeesService.getProjects(this.employee['_id']).subscribe(res => {
+            if (res && res['data']) {
+              this.projects = res['data']
+            }
+          });
         }
-      })
-   })
+      });
+   });
   }
   goBack() {
-    this.location.back()
-  }
-
-  deleteProject(id) {
-    console.log('delete project')
+    this.location.back();
   }
 
 }

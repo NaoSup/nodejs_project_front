@@ -8,20 +8,20 @@ import { BUSINESS_SECTORS } from '../../../config/constants';
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
-  clients:Array<Object>;
+  clients: Array<Object>;
   businessSectorsList = BUSINESS_SECTORS;
   constructor(private clientsService: ClientsService) { }
 
   ngOnInit() {
     this.clientsService.getAllClients().subscribe(res => {
-      if(res && res['data']) {
-        this.clients = res['data']
+      if (res && res['data']) {
+        this.clients = res['data'];
       }
-    })
+    });
   }
 
   deleteClient(id) {
-    this.clientsService.deleteClient(id)
+    this.clientsService.deleteClient(id);
   }
 
 }

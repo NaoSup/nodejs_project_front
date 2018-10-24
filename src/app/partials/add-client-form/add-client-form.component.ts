@@ -23,7 +23,7 @@ export class AddClientFormComponent implements OnInit {
       email: null
     },
     businessSector: null
-  }
+  };
 
   businessSectorsList = BUSINESS_SECTORS;
   businessSectorsKeys = Object.keys(this.businessSectorsList);
@@ -34,22 +34,21 @@ export class AddClientFormComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.url['value'][1].path === 'edit' && this.route.params['value']['id']) {
-      this.clientId = this.route.params['value']['id']
+      this.clientId = this.route.params['value']['id'];
       this.doesClientExists = true;
       this.clientsService.getDetailsClient(this.clientId).subscribe(res => {
         if (res && res['data'] && res['data'].length) {
-          this.client = res['data'][0]
+          this.client = res['data'][0];
         }
-      })
+      });
     }
   }
 
   onSubmit() {
     if (this.clientId) {
-      this.clientsService.updateClient(this.clientId, this.client)
+      this.clientsService.updateClient(this.clientId, this.client);
     } else {
-      this.clientsService.addClient(this.client)
+      this.clientsService.addClient(this.client);
     }
   }
-
 }

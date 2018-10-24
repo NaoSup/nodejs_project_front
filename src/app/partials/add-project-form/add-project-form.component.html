@@ -1,3 +1,98 @@
-<p>
-  add-project-form works!
-</p>
+
+<div class="row">
+    <div class="col-10 offset-1">
+      <ng-container *ngIf="doesProjectExists; else addProject">
+        <h3>Edit project</h3>
+      </ng-container>
+      <ng-template #addProject>
+        <h3>Add a project</h3>
+      </ng-template> 
+      <div class="row">
+        <div class="col-10 offset-1">
+          <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="project.name">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea name="description" class="form-control" cols="30" rows="5" [(ngModel)]="project.description"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label>Start Date</label>
+                <input type="date" class="form-control" name="dateStart" [(ngModel)]="project.dateStart">
+              </div>
+              <div class="form-group col-6">
+                <label>End Date</label>
+                <input type="date" class="form-control" name="dateEnd" [(ngModel)]="project.dateEnd">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-4">
+                <label>Client</label>
+                <select class="form-control" name="client" [(ngModel)]="project.client._id">
+                  <option *ngFor="let client of clients" [ngValue]="client._id">{{ client.companyName }}</option>
+                </select>
+              </div>
+              <div class="form-group col-4">
+                <label>Price</label>
+                <input type="number"  class="form-control" name="price" [(ngModel)]="project.price">
+              </div>
+              <div class="form-group col-4">
+                <label>Status</label>
+                <select class="form-control" name="status" [(ngModel)]="project.status">
+                  <option *ngFor="let key of projectStatusKeys" [ngValue]="key">{{ projectStatusList[key] }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-5">
+                <h5>Add Employees</h5>
+                <table class="table table-borderless table-sm table-responsive table-hover">
+                  <tbody></tbody>
+                    <tr *ngFor="let e1 of employees; let i = index" (click)="addToEmployeesList(e1)" class="clickable">
+                      <td>
+                        {{ e1.firstName | titlecase }} {{ e1.lastName | uppercase }} - {{ employeesPosition[e1.position] }}
+                      </td>
+                    </tr>
+                  </tbody>
+                  <p *ngIf="!employees.length" class="font-italic centerCol  pt-4">All the employees have been added to the current project...</p>
+                </table>
+              </div>
+              <div class="form-group col-2 text-center centerCol">
+                <p>=></p>
+              </div>
+              <div class="form-group col-5">
+                <label></label>
+                <table class="table table-borderless table-sm table-responsive table-hover">
+                  <tbody>
+                    <tr *ngFor="let e2 of project.employees" (click)="deleteEmployees(e2)" class="clickable">
+                      <td>
+                        {{ e2.firstName | titlecase }} {{ e2.lastName | uppercase }} - {{ employeesPosition[e2.position] }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p *ngIf="!project.employees.length" class="font-italic pt-4">You didn't add employees for this project yet...</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">Save</button>
+            </div>
+          </form>
+            <swal #confirmAddProjectSwal 
+            title="The project has been added !" type="success"
+            [options]="{  confirmButtonText: 'Great !' }"
+            (confirm)="redirectToList()"></swal>
+            <swal #confirmEditProjectSwal 
+            title="The project has been updated !" type="success"
+            [options]="{  confirmButtonText: 'Great !' }"
+            (confirm)="redirectToProject()"></swal>
+            <swal #errorOnSubmit 
+            title="Oups... Something went wrong" text="You can try again" type="error"></swal>
+        </div>
+      </div>
+    </div>
+  </div>
+    
